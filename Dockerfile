@@ -1,23 +1,23 @@
-# 1. Java OpenJDK 17 imajını kullanıyoruz
-FROM openjdk:17-jdk-slim
+# 1. Aşama: Maven ile uygulamayı derleyelim
+FROM maven:3.8.4-openjdk-17-slim AS build
 
-# 2. Çalışma dizinini /app olarak ayarlıyoruz
+# Çalışma dizini oluşturuyoruz
 WORKDIR /app
 
-# 3. Maven'i yükleyelim (derleme için)
-RUN apt-get update && apt-get install -y maven
-
-# 4. Proje dosyalarını konteynıra kopyalıyoruz
+# Proje dosyalarını konteynıra kopyalıyoruz
 COPY . .
 
-# 5. Projeyi derliyoruz (Maven kullanarak)
+# Maven ile projeyi derliyoruz
 RUN mvn clean install
 
-# 6. target klasörünü kontrol et ve .jar dosyasını kopyala
-RUN ls -al target/  # Burada target dizini ve içeriklerini listeleyebilirsiniz
+# 2. Aşama: Derlenmiş jar dosyasını final Docker imajına taşıyoruz
+FROM openjdk:17-jdk-slim
 
-# 7. Uygulamayı çalıştıracak .jar dosyasını kopyalıyoruz
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
+# Çalışma dizini oluşturuyoruz
+WORKDIR /app
 
-# 8. Uygulamayı çalıştırıyoruz
+# 1. aşamadan .jar dosyasını kopyalıyoruz
+COPY --from=build /app/target/demo-0.0.1-SNAPSHOT.jar app.jar
+
+# Uygulamayı çalıştırıyoruz
 CMD ["java", "-jar", "app.jar"]
