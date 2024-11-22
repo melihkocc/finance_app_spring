@@ -7,15 +7,17 @@ WORKDIR /app
 # 3. Maven'i yükleyelim (derleme için)
 RUN apt-get update && apt-get install -y maven
 
-# 4. GitHub'dan projeyi çekmek için gerekli bağımlılıkları ve dosyaları kopyalıyoruz
+# 4. Proje dosyalarını konteynıra kopyalıyoruz
 COPY . .
 
 # 5. Projeyi derliyoruz (Maven kullanarak)
 RUN mvn clean install
 
-# 6. Uygulamayı çalıştıracak .jar dosyasını kopyalıyoruz
-# (Derleme işlemi sonucunda target dizininde oluşan .jar dosyasını alacağız)
+# 6. target klasörünü kontrol et ve .jar dosyasını kopyala
+RUN ls -al target/  # Burada target dizini ve içeriklerini listeleyebilirsiniz
+
+# 7. Uygulamayı çalıştıracak .jar dosyasını kopyalıyoruz
 COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
 
-# 7. Uygulamayı çalıştırıyoruz
+# 8. Uygulamayı çalıştırıyoruz
 CMD ["java", "-jar", "app.jar"]
