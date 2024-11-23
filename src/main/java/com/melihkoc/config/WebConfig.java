@@ -14,7 +14,7 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Tüm endpoint'ler için geçerli
-                        .allowedOrigins("http://localhost:3000","https://finance-app-next-fnt6wynb5-melihkoccs-projects.vercel.app") // Frontend URL
+                        .allowedOrigins("http://localhost:3000","https://finance-app-next-phi.vercel.app") // Frontend URL
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Cookie'leri ve kimlik doğrulama bilgilerini dahil etmek için
