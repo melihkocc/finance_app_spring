@@ -40,7 +40,7 @@ public class SecurityConfig {
                     var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
                     corsConfiguration.setAllowCredentials(true);
                     // Yıldız yerine, burada belirli originleri listeleyin
-                    corsConfiguration.addAllowedOrigin("http://localhost:3000"); // Sadece bu domain'e izin ver
+                    corsConfiguration.addAllowedOrigin("https://finance-app-next-fnt6wynb5-melihkoccs-projects.vercel.app"); // Sadece bu domain'e izin ver
                     corsConfiguration.addAllowedHeader("*");  // Tüm header'lara izin verir
                     corsConfiguration.addAllowedMethod("GET");  // GET methoduna izin verir
                     corsConfiguration.addAllowedMethod("POST"); // POST methoduna izin verir
